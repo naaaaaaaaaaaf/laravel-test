@@ -40,6 +40,11 @@
                                 </td>
                                 <td>
                                     <!-- 削除ボタン -->
+                                    <form action="{{ route('tasks.destroy',$task->id) }}" method="POST">
+                                        @method('delete')
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger">削除</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
