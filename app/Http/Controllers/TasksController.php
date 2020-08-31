@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Dotenv\Validator;
+use Validator;
 use App\Task;
 
 class TasksController extends Controller
@@ -38,6 +38,25 @@ class TasksController extends Controller
     public function store(Request $request)
     {
         //
+        // バリデーション
+        $validator = Validator::make($request->all(), [
+            'task' => 'required|max:255',
+        ]);
+        // バリデーション:エラー
+        if ($validator->fails()) {
+            return redirect()
+                ->route('tasks.index')
+                ->withInput()
+                ->withErrors($validator);
+        }
+        // Eloquentモデル
+        $task = new Task;
+        $task->task = $request->task;
+        $task->deadline = '2019-10-21';
+        $task->comment = 'todo!';
+        $task->save();
+        // ルーティング「tasks.index」にリクエスト送信（一覧ページに移動）
+        return redirect()->route('tasks.index');
     }
 
     /**
