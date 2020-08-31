@@ -16,7 +16,10 @@ class TasksController extends Controller
     public function index()
     {
         //
-        return view('tasks');
+        $tasks = Task::orderBy('deadline', 'asc')->get();
+        return view('tasks', [
+            'tasks' => $tasks
+        ]);
     }
 
     /**
@@ -68,6 +71,7 @@ class TasksController extends Controller
     public function show($id)
     {
         //
+
     }
 
     /**
