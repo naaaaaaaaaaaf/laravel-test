@@ -17,9 +17,9 @@ class TasksController extends Controller
     {
         //
         $tasks = Task::orderBy('deadline', 'asc')->get();
-        return view('tasks', [
+        return response(view('tasks', [
             'tasks' => $tasks
-        ]);
+        ]));
     }
 
     /**
@@ -47,10 +47,10 @@ class TasksController extends Controller
         ]);
         // バリデーション:エラー
         if ($validator->fails()) {
-            return redirect()
+            return response(redirect()
                 ->route('tasks.index')
                 ->withInput()
-                ->withErrors($validator);
+                ->withErrors($validator));
         }
         // Eloquentモデル
         $task = new Task;
@@ -59,7 +59,7 @@ class TasksController extends Controller
         $task->comment = 'todo!';
         $task->save();
         // ルーティング「tasks.index」にリクエスト送信（一覧ページに移動）
-        return redirect()->route('tasks.index');
+        return response(redirect()->route('tasks.index'));
     }
 
     /**
@@ -108,6 +108,6 @@ class TasksController extends Controller
         //
         $task = Task::find($id);
         $task->delete();
-        return redirect()->route('tasks.index');
+        return response(redirect()->route('tasks.index'));
     }
 }
