@@ -13,6 +13,16 @@
                     <input type="text" name="task" id="task" class="form-control">
                 </div>
             </div>
+            <!-- deadline -->
+            <div class="col-sm-6">
+                <label for="deadline" class="col-sm-3 control-label">Deadline</label>
+                <input type="date" name="deadline" id="deadline" class="form-control">
+            </div>
+            <!-- comment -->
+            <div class="col-sm-6">
+                <label for="comment" class="col-sm-3 control-label">Comment</label>
+                <input type="text" name="comment" id="comment" class="form-control">
+            </div>
             <!-- タスク登録ボタン -->
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-6">
@@ -30,6 +40,8 @@
                         <!-- テーブルヘッダ -->
                         <thead>
                         <th>タスク</th>
+                        <th>締め切り</th>
+                        <th>コメント</th>
                         </thead>
                         <!-- テーブル本体 -->
                         <tbody>
@@ -37,6 +49,12 @@
                             <tr>
                                 <td class="table-text">
                                     <div>{{ $task->task }}</div>
+                                </td>
+                                <td class="table-text">
+                                    <div>{{ $task->deadline }}</div>
+                                </td>
+                                <td class="table-text">
+                                    <div>{{ $task->comment }}</div>
                                 </td>
                                 <td>
                                     <!-- 削除ボタン -->
