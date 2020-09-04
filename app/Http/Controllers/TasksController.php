@@ -72,7 +72,6 @@ class TasksController extends Controller
     public function show($id)
     {
         //
-
     }
 
     /**
@@ -84,6 +83,8 @@ class TasksController extends Controller
     public function edit($id)
     {
         //
+        $task = Task::find($id);
+        return response(view('taskedit', ['task' => $task]));
     }
 
     /**
@@ -96,6 +97,25 @@ class TasksController extends Controller
     public function update(Request $request, $id)
     {
         //
+        //バリデーション
+        $validator = Validator::make($request->all(), [
+            'task' => 'required|max:255',
+            'deadline' => 'required',
+        ]);
+        //バリデーション:エラー
+        if ($validator->fails()) {
+            return response(redirect()
+                ->route('tasks.edit', $id)
+                ->withInput()
+                ->withErrors($validator));
+        }
+        //データ更新処理
+        $task = Task::find($id);
+        $task->task   = $request->task;
+        $task->deadline = $request->deadline;
+        $task->comment = $request->comment;
+        $task->save();
+        return response(redirect()->route('tasks.index'));
     }
 
     /**

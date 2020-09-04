@@ -57,6 +57,12 @@
                                     <div>{{ $task->comment }}</div>
                                 </td>
                                 <td>
+                                    <form action="{{ route('tasks.edit',$task->id) }}" method="GET">
+                                        @csrf
+                                        <button type="submit" class="btn btn-primary">更新</button>
+                                    </form>
+                                </td>
+                                <td>
                                     <!-- 削除ボタン -->
                                     <form action="{{ route('tasks.destroy',$task->id) }}" method="POST">
                                         @method('delete')
