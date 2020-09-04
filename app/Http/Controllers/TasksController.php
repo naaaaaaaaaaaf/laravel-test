@@ -5,9 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Validator;
 use App\Task;
+use Auth;
+
 
 class TasksController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +22,9 @@ class TasksController extends Controller
     public function index()
     {
         //
-        $tasks = Task::orderBy('deadline', 'asc')->get();
+        $tasks = Task::where('user_id',Auth::user()->id)
+            ->orderBy('deadline', 'asc')
+            ->get();
         return response(view('tasks', [
             'tasks' => $tasks
         ]));
@@ -55,6 +63,7 @@ class TasksController extends Controller
         }
         // Eloquentモデル
         $task = new Task;
+        $task->user_id = Auth::user()->id;
         $task->task = $request->task;
         $task->deadline = $request->deadline;
         $task->comment = $request->comment;

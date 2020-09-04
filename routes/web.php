@@ -22,4 +22,4 @@ Route::resource('tasks', 'TasksController')->only([
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'TasksController@index')->name('home');
