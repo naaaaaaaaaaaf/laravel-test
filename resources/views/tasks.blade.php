@@ -1,47 +1,63 @@
 @extends('layouts.app')
 @section('content')
-    <div class="panel-body">
-        <!-- バリデーションエラーの表示に使用するエラーファイル-->
-    @include('common.errors')
-    <!-- タスク登録フォーム -->
-        <form action="{{ route('tasks.store') }}" method="POST" class="form-horizontal">
-            @csrf
-            <div class="form-group">
-                <!-- タスク名 -->
-                <div class="col-sm-6">
-                    <label for="task" class="col-sm-3 control-label">Task</label>
-                    <input type="text" name="task" id="task" class="form-control">
-                </div>
+    <div class="container">
+        <div class="panel-body">
+            <!-- バリデーションエラーの表示に使用するエラーファイル-->
+        @include('common.errors')
+        <!-- タスク登録フォーム -->
+            <div class="card mb-3">
+                <form action="{{ route('tasks.store') }}" method="POST" class="form-horizontal">
+                    <div class="card-header">タスク登録フォーム</div>
+
+                    <div class="card-body">
+
+                        @csrf
+                        <div class="form-group row">
+                            <!-- タスク名 -->
+                            <div class="col-sm-6">
+                                <label for="task" class="col-sm-3 control-label">Task</label>
+                                <input type="text" name="task" id="task" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <!-- deadline -->
+                            <div class="col-sm-6">
+                                <label for="deadline" class="col-sm-3 control-label">Deadline</label>
+                                <input type="date" name="deadline" id="deadline" class="form-control">
+                            </div>
+                        </div>
+                        <!-- comment -->
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <label for="comment" class="col-sm-3 control-label">Comment</label>
+                                <input type="text" name="comment" id="comment" class="form-control">
+                            </div>
+                        </div>
+                        <!-- タスク登録ボタン -->
+                    </div>
+
+                    <div class="card-footer text-right">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
             </div>
-            <!-- deadline -->
-            <div class="col-sm-6">
-                <label for="deadline" class="col-sm-3 control-label">Deadline</label>
-                <input type="date" name="deadline" id="deadline" class="form-control">
-            </div>
-            <!-- comment -->
-            <div class="col-sm-6">
-                <label for="comment" class="col-sm-3 control-label">Comment</label>
-                <input type="text" name="comment" id="comment" class="form-control">
-            </div>
-            <!-- タスク登録ボタン -->
-            <div class="form-group">
-                <div class="col-sm-offset-3 col-sm-6">
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </div>
-            </div>
-        </form>
+        </div>
         <!-- この下に登録済みタスクリストを表示 -->
         <!-- 表示領域 -->
         @if (count($tasks) > 0)
-            <div class="panel panel-default">
-                <div class="panel-heading">タスクリスト</div>
-                <div class="panel-body">
-                    <table class="table table-striped task-table">
+            <div class="card">
+
+                <div class="card-header">タスクリスト</div>
+                <div class="card-body">
+                    <table class="table table-striped task-table table-bordered">
                         <!-- テーブルヘッダ -->
                         <thead>
                         <th>タスク</th>
                         <th>締め切り</th>
                         <th>コメント</th>
+                        <th>更新</th>
+                        <th>削除</th>
+
                         </thead>
                         <!-- テーブル本体 -->
                         <tbody>
@@ -76,7 +92,8 @@
                     </table>
                 </div>
             </div>
-        @endif
+    @endif
     <!-- ここまでタスクリスト -->
+    </div>
     </div>
 @endsection
