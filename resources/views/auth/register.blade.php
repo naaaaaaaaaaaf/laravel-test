@@ -61,6 +61,35 @@
                             </div>
                         </div>
 
+                        <div class="form-row">
+                            <div class="col-md-3 mb-3">
+                                <label for="inputAddress01">郵便番号(7桁)</label>
+                                <input type="text" name="zipcode" id="zipcode" maxlength="7" onKeyUp="AjaxZip3.zip2addr(this,'','prefecture','address');" class="form-control @error('zipcode') is-invalid @enderror" placeholder="1030013" value="{{ old('zipcode') }}" required>
+                                @error('zipcode')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="inputAddress02">都道府県</label>
+                                <input type="text" name="prefecture" id="prefecture" class="form-control @error('prefecture') is-invalid @enderror " value="{{ old('prefecture') }}" placeholder="東京都" required>
+                                @error('prefecture')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="inputAddress03">住所</label>
+                                <input type="text" name="address" class="form-control @error('address') is-invalid @enderror " value="{{ old('address') }}" id="address" placeholder="中央区日本橋人形町" required>
+                                @error('address')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
